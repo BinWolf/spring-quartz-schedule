@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+          
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>wolf-schedule.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!--TODO 可以导入数据库的配置文件-->
+	<!--定时任务的主要业务-->
+	<import resource="wolf-schedule-quartz.xml"/>
+
+</beans>

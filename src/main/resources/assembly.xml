@@ -1,0 +1,33 @@
+<assembly>
+  <id>release</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>    
+  <dependencySets>
+    <dependencySet>
+      <useProjectArtifact>true</useProjectArtifact>
+      <outputDirectory>lib</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>deploy/scripts</directory>
+      <outputDirectory>/bin</outputDirectory>
+      <includes>
+        <include>check.sh</include>
+        <include>start_app.sh</include>
+      </includes>
+    </fileSet>
+    
+    <!-- 开发环境配置文件，如果存在同名文件则不覆盖 -->
+    <fileSet>
+      <directory>src/main/resources</directory>
+      <outputDirectory>/conf</outputDirectory>
+      <includes>
+        <include>*.properties</include>
+        <include>*.xml</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>
