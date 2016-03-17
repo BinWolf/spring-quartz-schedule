@@ -1,16 +1,16 @@
 #!/bin/sh
 ulimit -n 110000
 #JDK home
-JAVA_HOME=/usr/local/java
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home
 
 #executing user
-RUNNING_USER=root
+RUNNING_USER=wolf
 
 #app home
-APP_HOME=/usr/local/wenwo/wenwo-schedule
+APP_HOME=~/tmp/wolf-schedule
  
 #main class
-APP_MAINCLASS=com.wenwo.schedule.job.AppLauncher
+APP_MAINCLASS=com.wolf.schedule.job.StartSchedule
 
 
 #classpath
