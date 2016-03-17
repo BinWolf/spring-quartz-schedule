@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="wolf-job" default="deploy" basedir=".">
+	<property name="base.app" value="."/>
+	<property name="target.home" value="${base.app}/target"/>
+	<property name="host.home" value="127.0.0.1" />
+	<property name="host.password" value="wolf" />
+	<property name="war.name" value="schedule-job-1.0-SNAPSHOT-release.zip"/>
+	<property name="config.home" value="${base.app}/src/main/resources"/>
+	<target name="shutdown">
+		<echo>
+			停止JOB，删除服务代码......
+		</echo>
+		<sshexec host="${host.home}" username="wolf"  password="${host.password}"
+		        		trust="true" command="cd ~/tmp/wolf-schedule;pwd;sh bin/check.sh stop;rm -rf ~/tmp/wolf-schedule/*;"/>
+	</target>
+	
+	<target name="uploadWar" depends="shutdown">
+		<echo>
+			上传${war.name}......
+		</echo>
+		<!--<scp file="${target.home}/${war.name}" todir="root:${host.password}@${host.home}:~/tmp/wolf-schedule" trust="true"/>-->
+		<scp file="${target.home}/${war.name}" todir="~/tmp/wolf-schedule" trust="true"/>
+	</target>
+	
+	<target name="prepareProject" depends="uploadWar">
+		<echo>
+			开始解压${war.name}......
+		</echo>
+		<sshexec host="${host.home}" username="wolf"  password="${host.password}"
+		        		trust="true" command="cd ~/tmp/wolf-schedule;unzip ${war.name};"/>
+	</target>
+
+	<target name="startup" depends="prepareProject">
+		<echo>
+			启动JOB...
+		</echo>
+		<sshexec host="${host.home}" username="wolf"  password="${host.password}"
+				        		trust="true" command="cd ~/tmp/wolf-schedule;pwd;sh bin/check.sh start;"/>
+	</target>
+	
+	<target name="build" depends="startup">
+		<echo>
+			target.home = ${target.home}
+			file.war = ${target.home}/${war.name}
+		</echo>
+	</target>
+	<target name="deploy" depends="build">
+	</target>
+</project>
